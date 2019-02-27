@@ -1,12 +1,14 @@
+const keys = require('./config.js');
+
 module.exports = {
   development: {
     client: "postgresql",
     connection: {
-      host: process.env.RDS_HOSTNAME,
-      user: process.env.RDS_USERNAME,
-      password: process.env.RDS_PASSWORD,
-      port: process.env.RDS_PORT,
-      database: process.env.RDS_DB_NAME
+      host: 'localhost',
+      user: 'postgres',
+      password: keys.pw,
+      port: '5432',
+      database: 'postgres'
     },
     migrations: {
       directory: __dirname + "/database/migrations"
