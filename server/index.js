@@ -68,7 +68,7 @@ app.put('/rooms/reviews/', function(req, res) {
   })
 });
 
-app.delete('/rooms/reviews', function(req, res) {
+app.delete('/rooms/reviews/', function(req, res) {
   var review_id = req.query.data.review_id;
   deleteReview(review_id).then(() => {
     return res.end();
