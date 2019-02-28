@@ -2,14 +2,8 @@ const keys = require('./config.js');
 
 module.exports = {
   development: {
-    client: "postgresql",
-    connection: {
-      host: 'localhost',
-      user: 'postgres',
-      password: keys.pw,
-      port: '5432',
-      database: 'postgres'
-    },
+    client: "mysql",
+    connection: keys.maria_config,
     migrations: {
       directory: __dirname + "/database/migrations"
     },

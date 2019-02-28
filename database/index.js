@@ -31,6 +31,23 @@ const findFilteredReviews = function(query) {
     });
 };
 
+const addReview = function(review) {
+  return knex
+    .insert(review)
+}
+
+const deleteReview = function(review_id) {
+  return knex
+    .where({review_id: review_id})
+    .del()
+}
+
+const updateReview = function(review_id, column, newData) {
+  return knex
+    .where({review_id: review_id})
+    .update({ column: newData })
+}
+
 module.exports = knex;
 
 module.exports = { findMostRecent, findMostRelevant, findFilteredReviews };
