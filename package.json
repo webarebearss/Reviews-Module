@@ -25,6 +25,8 @@
     "body-parser": "latest",
     "cors": "^2.8.5",
     "css-loader": "^2.1.0",
+    "csv-parser": "^2.1.0",
+    "csv-writer": "^1.2.0",
     "express": "latest",
     "faker": "^4.1.0",
     "jest-mock-knex": "^1.18.0",
