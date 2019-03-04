@@ -1,7 +1,7 @@
 var config = require("../../knexfile");
 var env = "development";
 var knex = require("knex")(config[env]);
-var createCsv = require('./csv_generator.js');
+var createCsv = require('./csv_generator.js').createCsv;
 const fs = require('fs');
 
 async function seedMariaDB() {
