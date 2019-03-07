@@ -97,4 +97,5 @@ async function createCsv(userCount, index) {
 
 // createCsv(500000);
 module.exports = createCsv;
-module.exports = makeFakeUsers;
+// module.exports = makeFakeUsers;
+

@@ -3,12 +3,12 @@ const keys = require('./config.js');
 module.exports = {
   development: {
     client: "mysql",
-    connection: keys.maria_config,
+    connection: keys.dbConfig,
     migrations: {
       directory: __dirname + "/database/migrations"
     },
     seeds: {
-      directory: __dirname + "/database/seeds"
+      directory: __dirname + "/database/seeds/customer_reviews.js"
     }
   },
 

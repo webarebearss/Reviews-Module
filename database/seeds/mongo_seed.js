@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const fakeData = require('./csv_generator.js').makeFakeUsers;
+const makeFakeUsers = require('./csv_generator.js');
 
 let reviewSchema = new mongoose.Schema({
-  id: {type: Number, autoIndex: true},
+  id: {type: Number, Index: true},
   username: {type: String, require: true},
   created_at: { type : Date, default: Date.now },
   description: String,
@@ -17,12 +17,14 @@ let reviewSchema = new mongoose.Schema({
   listing_id: Number,
 })
 
+const Review = mongoose.model('Review', reviewSchema);
+
 const mongoSeed = function() {
   mongoose.connect("mongodb://localhost/reviews")
     .then( async () => {
       let start = Date.now();
-      for (let i = 0; i < 1000; i++) {
-        await reviewSchema.insertMany(makeFakeUsers(1000));
+      for (let i = 0; i < 900; i++) {
+        await Review.insertMany(makeFakeUsers(10000));
       }
       let end = Date.now();
       let min = (start - end) * -1.666e-5;
