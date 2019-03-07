@@ -1,7 +1,7 @@
 var config = require("../../knexfile");
 var env = "development";
 var knex = require("knex")(config[env]);
-var createCsv = require('./csv_generator.js').createCsv;
+var createCsv = require('./csv_generator.js');
 const fs = require('fs');
 
 async function seedMariaDB() {
@@ -10,7 +10,7 @@ async function seedMariaDB() {
   for (let i = 0; i < 10; i++) {
     await createCsv(500000, i);
     await knex.raw(`LOAD DATA LOCAL INFILE './database/seeds/generated_data${i}.csv'
-      INTO TABLE test.reviews
+      INTO TABLE Review.reviews
       FIELDS TERMINATED BY ','
       LINES TERMINATED BY '\n'
       IGNORE 1 LINES
