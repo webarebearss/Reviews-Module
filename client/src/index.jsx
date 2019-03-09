@@ -52,12 +52,19 @@ class App extends React.Component {
   }
 
   async customReviewListings(query) {
-    axios
+    if (query === 'recent') {
+      axios
+      .get('/rooms/reviews/recent', { params: { data: 1} })
+      .then( res => { this.filterReviews(res.data)})
+    } else {
+      axios
       .get(`/rooms/reviews/${query}`)
       .then(res => this.filterReviews(res.data));
+    }
   }
 
   calculateUserRatings(users) {
+    users = users.reviews;
     let totalAverage = 0;
     const ratings = {
       accuracy: 0,
