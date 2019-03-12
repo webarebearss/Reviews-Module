@@ -7,7 +7,7 @@ const fs = require('fs');
 async function seedMariaDB() {
   let start = Date.now();
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 20; i++) {
     await createCsv(500000, i);
     await knex.raw(`LOAD DATA LOCAL INFILE './database/seeds/generated_data${i}.csv'
       INTO TABLE Review.reviews

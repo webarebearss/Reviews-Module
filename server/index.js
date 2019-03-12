@@ -1,9 +1,11 @@
 require('newrelic');
 const express = require("express");
-const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const compression = require('compression');
+
+// const cache = require('./utils.js');
+const app = express();
 const {
   findMostRecent,
   findMostRelevant,
@@ -12,24 +14,13 @@ const {
   addReview,
   updateReview,
 } = require("../database/index.js");
-
-// for migrating and seeding db
-// var config = require("../knexfile.js");
-// var env = "development";
-// var knex = require("knex")(config[env]);
-
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3003;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
-app.use(express.static(__dirname + "/../client/dist"));
-
-// // seed db
-// knex.migrate.latest([config]).then(function() {
-//   return knex.seed.run();
-// });
+app.use(express.static(__dirname + "/../client/dist", { maxAge: 31536000 }));
 
 app.get("/rooms/reviews/recent/", function(req, res) {
   console.log("Inside server for get request");
