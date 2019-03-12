@@ -3,8 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const compression = require('compression');
-const redis = require('redis');
 
+// const cache = require('./utils.js');
 const app = express();
 const {
   findMostRecent,
@@ -14,37 +14,15 @@ const {
   addReview,
   updateReview,
 } = require("../database/index.js");
-const port = process.env.PORT || 3000;
-const client = redis.createClient();
-
-const cache = (req,res,next) => {
-  let key = '__express__' + req.originalUrl || req.url;
-  client.get(key, (err, cachedBody) => {
-    if(cachedBody) {
-      res.send(JSON.parse(cachedBody));
-    } else {
-      res.sendResponse = res.send;
-      res.send = (body) => {
-        client.setex(key, 45, JSON.stringify(body));
-        res.sendResponse(body);
-      }
-      next();
-    }
-  })
-}
+const port = process.env.PORT || 3003;
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
-app.use(express.static(__dirname + "/../client/dist"));
+app.use(express.static(__dirname + "/../client/dist", { maxAge: 31536000 }));
 
-// // seed db
-// knex.migrate.latest([config]).then(function() {
-//   return knex.seed.run();
-// });
-
-app.get("/rooms/reviews/recent/", cache, function(req, res) {
+app.get("/rooms/reviews/recent/", function(req, res) {
   console.log("Inside server for get request");
 
   let listing_id = req.query.data;
@@ -55,7 +33,7 @@ app.get("/rooms/reviews/recent/", cache, function(req, res) {
   });
 });
 
-app.get("/rooms/reviews/relevant", cache, function(req, res) {
+app.get("/rooms/reviews/relevant", function(req, res) {
   console.log("Inside server for relevant get request");
 
   findMostRelevant().then(records => {
