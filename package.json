@@ -13,7 +13,7 @@
     "seedDb": " knex seed:run",
     "test": "jest client/src/ __test__",
     "test:coverage": "jest client/src/ __test__ --coverage",
-    "dev:react": "webpack -d --watch",
+    "dev:react": "webpack -p --watch",
     "build:webpack": "webpack-dev-server --config ./webpack.config.js --mode development",
     "sass": "sass --watch client/src/stylesheets/style.scss:client/dist/stylesheets/style.css"
   },
